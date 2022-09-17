@@ -104,15 +104,7 @@ use render::{component, rsx, html, Render};
 #[component]
 fn Page<'a, Children: Render>(title: &'a str, children: Children) {
    rsx! {
-     <>
-       <HTML5Doctype />
-       <html>
-         <head><title>{title}</title></head>
-         <body>
-           {children}
-         </body>
-       </html>
-     </>
+
    }
 }
 

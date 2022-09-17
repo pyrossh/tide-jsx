@@ -1,6 +1,6 @@
 [package]
 name = "tide-jsx-impl"
-version = "0.2.2"
+version = "0.3.0"
 authors = ["pyrossh", "Gal Schlezinger <gal@spitfire.co.il>"]
 edition = "2021"
 description = "The macros needed for `render`"

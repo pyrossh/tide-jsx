@@ -153,7 +153,8 @@ fn vec() {
 
 #[async_std::test]
 async fn render_view() -> std::io::Result<()> {
-    let mut res = view! { <p>{"hello"}</p> };
+    let result = view! { <p>{"hello"}</p> } as tide::Result;
+    let mut res = result.unwrap();
     assert_eq!(res.status(), StatusCode::Ok);
     assert_eq!(res.header("content-type").unwrap().as_str(), tide::http::mime::HTML.to_string());
     assert_eq!(res.take_body().into_string().await.unwrap(), "<p>hello</p>");

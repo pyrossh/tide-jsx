@@ -36,10 +36,10 @@ pub fn rsx(input: TokenStream) -> TokenStream {
 pub fn view(input: TokenStream) -> TokenStream {
     let el = parse_macro_input!(input as Element);
     let result = quote! {
-      ::tide::Response::builder(StatusCode::Ok)
+      Ok(::tide::Response::builder(tide::http::StatusCode::Ok)
             .content_type(::tide::http::mime::HTML)
-            .body(#el.render())
-            .build()
+            .body(::tide_jsx::Render::render(#el))
+            .build())
     };
     TokenStream::from(result)
 }
