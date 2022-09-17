@@ -1,21 +1,23 @@
-#[test]
-fn ui() {
-    let t = trybuild::TestCases::new();
-    t.compile_fail("ui/fail/*.rs");
-}
+// #[test]
+// fn ui() {
+//     let t = trybuild::TestCases::new();
+//     t.compile_fail("ui/fail/*.rs");
+// }
+use pretty_assertions::assert_eq;
+use tide_jsx::{html, rsx, component, Render, raw};
+use tide_jsx::html::HTML5Doctype;
+use std::borrow::Cow;
 
 #[test]
 fn works_with_dashes() {
     use pretty_assertions::assert_eq;
 
-    let value = render::html! { <div data-id={"myid"} /> };
+    let value = html! { <div data-id={"myid"} /> };
     assert_eq!(value, r#"<div data-id="myid"/>"#);
 }
 
 #[test]
 fn works_with_raw() {
-    use pretty_assertions::assert_eq;
-    use render::{html, raw};
 
     let actual = html! {
         <div>{raw!("<Hello />")}</div>
@@ -26,9 +28,7 @@ fn works_with_raw() {
 
 #[test]
 fn works_with_raw_ident() {
-    use pretty_assertions::assert_eq;
-
-    let actual = render::html! {
+    let actual = html! {
         <input r#type={"text"} />
     };
 
@@ -37,18 +37,12 @@ fn works_with_raw_ident() {
 
 #[test]
 fn works_with_keywords() {
-    use pretty_assertions::assert_eq;
-    use render::html;
-
     assert_eq!(html! { <input type={"text"} /> }, r#"<input type="text"/>"#);
     assert_eq!(html! { <label for={"me"} /> }, r#"<label for="me"/>"#);
 }
 
 #[test]
 fn element_ordering() {
-    use pretty_assertions::assert_eq;
-    use render::html;
-
     let actual = html! {
       <ul>
         <li>{"1"}</li>
@@ -79,9 +73,6 @@ fn element_ordering() {
 
 #[test]
 fn some_none() {
-    use pretty_assertions::assert_eq;
-    use render::{component, html, rsx};
-
     #[component]
     fn Answer(a: i8) {
         rsx! {
@@ -100,9 +91,6 @@ fn some_none() {
 
 #[test]
 fn owned_string() {
-    use pretty_assertions::assert_eq;
-    use render::{component, html, rsx};
-
     #[component]
     fn Welcome<'kind, 'name>(kind: &'kind str, name: &'name str) {
         rsx! {
@@ -120,10 +108,6 @@ fn owned_string() {
 
 #[test]
 fn cow_str() {
-    use pretty_assertions::assert_eq;
-    use render::html;
-    use std::borrow::Cow;
-
     let owned1 = "Borrowed from owned".to_owned();
     let owned2 = "Owned".to_owned();
 
@@ -141,9 +125,6 @@ fn cow_str() {
 
 #[test]
 fn number() {
-    use pretty_assertions::assert_eq;
-    use render::html;
-
     let num = 42;
 
     assert_eq!(html! { <p>{num}</p> }, "<p>42</p>")
@@ -151,9 +132,6 @@ fn number() {
 
 #[test]
 fn vec() {
-    use pretty_assertions::assert_eq;
-    use render::html;
-
     let list = vec!["Mouse", "Rat", "Hamster"];
 
     assert_eq!(
@@ -162,7 +140,7 @@ fn vec() {
                 {
                     list
                         .into_iter()
-                        .map(|text| render::rsx! { <li>{text}</li> })
+                        .map(|text| rsx! { <li>{text}</li> })
                         .collect::<Vec<_>>()
                 }
             </ul>
@@ -172,16 +150,8 @@ fn vec() {
 }
 
 mod kaki {
-    // A simple HTML 5 doctype declaration
-    use render::html::HTML5Doctype;
-    use render::{
-        // A macro to create components
-        component,
-        // A macro to compose components in JSX fashion
-        rsx,
-        // A trait for custom components
-        Render,
-    };
+    use crate::{html, rsx, component, HTML5Doctype, Render};
+    use crate::other::ExternalPage;
 
     // This can be any layout we want
     #[component]
@@ -201,8 +171,7 @@ mod kaki {
 
     #[test]
     fn test() {
-        use pretty_assertions::assert_eq;
-        let actual = render::html! {
+        let actual = html! {
           <Page title={"Home"}>
             {format!("Welcome, {}", "Gal")}
           </Page>
@@ -221,10 +190,7 @@ mod kaki {
 
     #[test]
     fn externals_test() {
-        use crate::other::ExternalPage;
-        use pretty_assertions::assert_eq;
-
-        let actual = render::html! {
+        let actual = html! {
           <ExternalPage title={"Home"} subtitle={"Foo"}>
             {format!("Welcome, {}", "Gal")}
           </ExternalPage>
@@ -249,8 +215,7 @@ mod kaki {
 /// Module for testing component visibility when imported from other modules.
 
 mod other {
-    use render::html::HTML5Doctype;
-    use render::{component, rsx, Render};
+    use crate::{component, rsx, HTML5Doctype, Render};
 
     #[component]
     pub fn ExternalPage<'title, 'subtitle, Children: Render>(

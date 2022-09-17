@@ -60,6 +60,6 @@ mod tests {
 #[macro_export]
 macro_rules! raw {
     ($text:expr) => {
-        ::render::Raw::from($text)
+        tide_jsx::Raw::from($text)
     };
 }
