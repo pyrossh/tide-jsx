@@ -1,12 +1,13 @@
-// #[test]
-// fn ui() {
-//     let t = trybuild::TestCases::new();
-//     t.compile_fail("ui/fail/*.rs");
-// }
 use pretty_assertions::assert_eq;
 use tide_jsx::{html, rsx, component, Render, raw};
 use tide_jsx::html::HTML5Doctype;
 use std::borrow::Cow;
+
+#[test]
+fn ui() {
+    let t = trybuild::TestCases::new();
+    t.compile_fail("tests/ui/fail/*.rs");
+}
 
 #[test]
 fn works_with_dashes() {

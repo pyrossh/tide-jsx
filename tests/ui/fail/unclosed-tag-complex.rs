@@ -1,4 +1,4 @@
-use render::html;
+use tide_jsx::html;
 
 fn main() {
     html! {

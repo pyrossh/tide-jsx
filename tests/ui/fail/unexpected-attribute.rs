@@ -1,4 +1,4 @@
-use render::{component, html, rsx};
+use tide_jsx::{component, html, rsx};
 
 #[component]
 fn Heading<'title>(title: &'title str) {
