@@ -1,5 +1,3 @@
-//! Render impls for numeric primitives
-
 use crate::Render;
 use std::fmt::{Result, Write};
 

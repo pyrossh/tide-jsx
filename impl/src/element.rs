@@ -55,7 +55,7 @@ impl ToTokens for Element {
             let attrs = self.attributes.for_simple_element();
             let children_tuple = self.children.as_option_of_tuples_tokens();
             quote! {
-                ::render::SimpleElement {
+                tide_jsx::SimpleElement {
                     tag_name: stringify!(#name),
                     attributes: #attrs,
                     contents: #children_tuple,

@@ -12,7 +12,7 @@ pub struct OpenTag {
 }
 
 fn name_or_fragment(maybe_name: Result<syn::Path>) -> syn::Path {
-    maybe_name.unwrap_or_else(|_| syn::parse_str::<syn::Path>("::render::Fragment").unwrap())
+    maybe_name.unwrap_or_else(|_| syn::parse_str::<syn::Path>("tide_jsx::Fragment").unwrap())
 }
 
 fn is_custom_element_name(path: &syn::Path) -> bool {

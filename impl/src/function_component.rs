@@ -44,13 +44,13 @@ pub fn create_function_component(f: syn::ItemFn) -> TokenStream {
         #[derive(Debug)]
         #vis struct #struct_name #impl_generics #inputs_block
 
-        impl #impl_generics ::render::Render for #struct_name #ty_generics #where_clause {
+        impl #impl_generics tide_jsx::Render for #struct_name #ty_generics #where_clause {
             fn render_into<W: std::fmt::Write>(self, w: &mut W) -> std::fmt::Result {
                 let result = {
                     #inputs_reading
                     #block
                 };
-                ::render::Render::render_into(result, w)
+                tide_jsx::Render::render_into(result, w)
             }
         }
     })
