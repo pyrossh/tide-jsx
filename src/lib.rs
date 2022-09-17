@@ -9,7 +9,7 @@ mod text_element;
 pub use self::render::Render;
 pub use fragment::Fragment;
 use tide::{http::mime, StatusCode};
-pub use tide_jsx_impl::{component, html, rsx};
+pub use tide_jsx_impl::{component, html, rsx, view};
 pub use simple_element::SimpleElement;
 pub use text_element::Raw;
 

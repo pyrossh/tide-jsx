@@ -1465,7 +1465,7 @@ dependencies = [
 
 [[package]]
 name = "tide-jsx"
-version = "0.3.0"
+version = "0.3.1"
 dependencies = [
  "async-std",
  "pretty_assertions",

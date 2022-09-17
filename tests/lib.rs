@@ -1,5 +1,6 @@
 use pretty_assertions::assert_eq;
-use tide_jsx::{html, rsx, component, Render, raw};
+use tide::StatusCode;
+use tide_jsx::{html, rsx, view, component, Render, raw, SimpleElement};
 use tide_jsx::html::HTML5Doctype;
 use std::borrow::Cow;
 
@@ -149,6 +150,12 @@ fn vec() {
         "<ul><li>Mouse</li><li>Rat</li><li>Hamster</li></ul>"
     )
 }
+
+// #[test]
+// fn render_view() {
+//     let res = view! { <p>{"hello"}</p> }.into::<tide::Result>();
+//     assert_eq!(res.status(), StatusCode::Ok);
+// }
 
 mod kaki {
     use crate::{html, rsx, component, HTML5Doctype, Render};

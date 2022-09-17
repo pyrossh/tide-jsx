@@ -31,6 +31,14 @@ pub fn rsx(input: TokenStream) -> TokenStream {
     TokenStream::from(result)
 }
 
+#[proc_macro]
+#[proc_macro_error]
+pub fn view(input: TokenStream) -> TokenStream {
+    let el = parse_macro_input!(input as Element);
+    let result = quote! { #el.into() };
+    TokenStream::from(result)
+}
+
 #[proc_macro_attribute]
 #[proc_macro_error]
 pub fn component(_attr: TokenStream, item: TokenStream) -> TokenStream {
