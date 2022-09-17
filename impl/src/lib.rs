@@ -35,7 +35,12 @@ pub fn rsx(input: TokenStream) -> TokenStream {
 #[proc_macro_error]
 pub fn view(input: TokenStream) -> TokenStream {
     let el = parse_macro_input!(input as Element);
-    let result = quote! { #el.into() };
+    let result = quote! {
+      ::tide::Response::builder(StatusCode::Ok)
+            .content_type(::tide::http::mime::HTML)
+            .body(#el.render())
+            .build()
+    };
     TokenStream::from(result)
 }
 

@@ -27,3 +27,21 @@ impl<'a, T: Render> From<SimpleElement<'a, T>> for tide::Result {
         Ok(s.into())
     }
 }
+
+impl<T: Render> From<Fragment<T>> for tide::Response {
+    fn from(s: Fragment<T>) -> Self {
+        tide::Response::builder(StatusCode::Ok)
+            .content_type(mime::HTML)
+            .body(s.render())
+            .build()
+    }
+}
+
+impl<T: Render> From<Fragment<T>> for tide::Result {
+    fn from(s: Fragment<T>) -> Self {
+        Ok(s.into())
+    }
+}
+
+
+
