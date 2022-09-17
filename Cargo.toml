@@ -1,6 +1,6 @@
 [package]
 name = "tide-jsx"
-version = "0.2.1"
+version = "0.3.0"
 authors = ["pyrossh", "Gal Schlezinger <gal@spitfire.co.il>"]
 edition = "2021"
 description = "A safe and simple template engine with the ergonomics of JSX"

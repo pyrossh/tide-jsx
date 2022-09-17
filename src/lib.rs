@@ -11,3 +11,9 @@ pub use fragment::Fragment;
 pub use tide_jsx_impl::{component, html, rsx};
 pub use simple_element::SimpleElement;
 pub use text_element::Raw;
+
+impl<'a, T: Render> From<SimpleElement<'a, T>> for tide::Response {
+    fn from(s: SimpleElement<T>) -> Self {
+        tide::Body::from_string(s.render()).into()
+    }
+}
