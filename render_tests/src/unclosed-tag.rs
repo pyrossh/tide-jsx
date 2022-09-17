@@ -1,7 +1,5 @@
-use render::html;
-
 fn main() {
-    html! {
+    render::html! {
       <ul>
         <li>
       </ul>
