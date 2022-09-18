@@ -1,12 +1,12 @@
 use tide::http::mime;
 use tide::utils::After;
-use tide::{Request, Response, log};
-use tide_jsx::{view, rsx, component};
+use tide::{log, Request, Response};
 use tide_jsx::html::HTML5Doctype;
+use tide_jsx::{component, rsx, view};
 
 #[component]
 fn Heading<'title>(title: &'title str) {
-  rsx! { <h1 class={"title"}>{title}</h1> }
+    rsx! { <h1 class={"title"}>{title}</h1> }
 }
 
 async fn index(_req: Request<()>) -> tide::Result {

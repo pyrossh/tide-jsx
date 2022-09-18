@@ -1,4 +1,3 @@
-
 use crate::Render;
 use std::fmt::{Result, Write};
 

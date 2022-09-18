@@ -8,10 +8,10 @@ mod text_element;
 
 pub use self::render::Render;
 pub use fragment::Fragment;
-use tide::{http::mime, StatusCode};
-pub use tide_jsx_impl::{component, html, rsx, view};
 pub use simple_element::SimpleElement;
 pub use text_element::Raw;
+use tide::{http::mime, StatusCode};
+pub use tide_jsx_impl::{component, html, rsx, view};
 
 impl<'a, T: Render> From<SimpleElement<'a, T>> for tide::Response {
     fn from(s: SimpleElement<'a, T>) -> Self {
@@ -42,6 +42,3 @@ impl<T: Render> From<Fragment<T>> for tide::Result {
         Ok(s.into())
     }
 }
-
-
-
