@@ -1,6 +1,7 @@
 # tide-jsx [![Build Status](https://github.com/pyrossh/tide-jsx/workflows/Test/badge.svg)](https://github.com/pyrossh/tide-jsx/actions?query=workflow%3ATest) [![crates.io](https://img.shields.io/crates/v/tide-jsx.svg)](https://crates.io/crates/tide-jsx)
 
 This crate allows to use jsx like templating engine (which is a slightly modified version of [render.rs](https://github.com/render-rs/render.rs)) as templates in your tide request handlers.
+Thanks to [@Schniz](https://github.com/Schniz) and all contributors for render.rs.
 
 ## Example
 
