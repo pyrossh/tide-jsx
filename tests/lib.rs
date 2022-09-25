@@ -251,3 +251,30 @@ mod other {
         }
     }
 }
+
+mod integration {
+    use crate::view;
+    use tide_testing::TideTestingExt;
+
+    #[async_std::test]
+    async fn test_server() -> tide::Result<()> {
+        let mut app = tide::new();
+        app.at("/").get(|_| async {
+            view! {
+                <div>
+                  <p>{"Hello World"}</p>
+                </div>
+            }
+        });
+
+        assert_eq!(
+            app.get("/").recv_string().await?,
+            "<div><p>Hello World</p></div>"
+        );
+        assert_eq!(
+            app.post("/missing").await?.status(),
+            tide::http::StatusCode::NotFound
+        );
+        Ok(())
+    }
+}
