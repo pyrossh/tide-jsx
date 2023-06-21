@@ -29,21 +29,28 @@ fn write_attributes<'a, W: Write>(maybe_attributes: Attributes<'a>, writer: &mut
     }
 }
 
+impl<'a, T: Render> SimpleElement<'a, T> {
+    fn is_closed_tag_required(&self) -> bool {
+        // for now, this is the only reason to force the open-closed tag pair
+        self.tag_name == "script"
+    }
+}
+
 impl<T: Render> Render for SimpleElement<'_, T> {
     fn render_into<W: Write>(self, writer: &mut W) -> Result {
-        match self.contents {
-            None => {
-                write!(writer, "<{}", self.tag_name)?;
-                write_attributes(self.attributes, writer)?;
-                write!(writer, "/>")
-            }
-            Some(renderable) => {
-                write!(writer, "<{}", self.tag_name)?;
-                write_attributes(self.attributes, writer)?;
-                write!(writer, ">")?;
+        if self.is_closed_tag_required() || self.contents.is_some() {
+            write!(writer, "<{}", self.tag_name)?;
+            write_attributes(self.attributes, writer)?;
+            write!(writer, ">")?;
+            if let Some(renderable) = self.contents {
                 renderable.render_into(writer)?;
-                write!(writer, "</{}>", self.tag_name)
             }
+            write!(writer, "</{}>", self.tag_name)
+        }
+        else {
+            write!(writer, "<{}", self.tag_name)?;
+            write_attributes(self.attributes, writer)?;
+            write!(writer, "/>")
         }
     }
 }
