@@ -13,6 +13,7 @@ pub struct SimpleElement<'a, T: Render> {
     pub tag_name: &'a str,
     pub attributes: Attributes<'a>,
     pub contents: Option<T>,
+    pub is_closing_tag_present: bool,
 }
 
 fn write_attributes<'a, W: Write>(maybe_attributes: Attributes<'a>, writer: &mut W) -> Result {
@@ -31,8 +32,8 @@ fn write_attributes<'a, W: Write>(maybe_attributes: Attributes<'a>, writer: &mut
 
 impl<'a, T: Render> SimpleElement<'a, T> {
     fn is_closed_tag_required(&self) -> bool {
-        // for now, this is the only reason to force the open-closed tag pair
-        self.tag_name == "script"
+        self.tag_name == "script" || // script tags require the closing tag
+            self.is_closing_tag_present // the user requested the closing tag
     }
 }
 
