@@ -8,6 +8,7 @@ pub struct Element {
     name: syn::Path,
     attributes: ElementAttributes,
     children: Children,
+    is_closing_tag_present: bool
 }
 
 impl Parse for Element {
@@ -27,6 +28,7 @@ impl Parse for Element {
             name: open_tag.name,
             attributes: open_tag.attributes,
             children,
+            is_closing_tag_present: !open_tag.self_closing
         })
     }
 }
@@ -54,11 +56,13 @@ impl ToTokens for Element {
         } else {
             let attrs = self.attributes.for_simple_element();
             let children_tuple = self.children.as_option_of_tuples_tokens();
+            let is_closing_tag_present = self.is_closing_tag_present;
             quote! {
                 tide_jsx::SimpleElement {
                     tag_name: stringify!(#name),
                     attributes: #attrs,
                     contents: #children_tuple,
+                    is_closing_tag_present: #is_closing_tag_present,
                 }
             }
         };
